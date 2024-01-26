@@ -44,10 +44,16 @@ After cloning the repository, you can install the required packages by running t
 pip install -r requirements.txt
 ```
 
-After installing the required packages, you can run the server by running the following command:
+Set the following environment variables:
+
+- `FLASK_APP` - The name of the application. This should be set to `main.py`.
+- `FLASK_ENV` - The environment in which the application is running. This should be set to `development` when running the application locally.
+- `FLASK_DEBUG` - Whether or not to enable debug mode. This should be set to `1` when running the application locally.
+
+Now, you can run the server by running the following command:
 
 ```bash
-python main.py
+flask run
 ```
 
 The server will run on port 5000 by default. You can change this in the `main.py` file by adding/changing the `port` parameter of the `app.run()` function.
@@ -147,7 +153,7 @@ Since the whole team is not fully familiarized with the terminal, you can use th
 
 It is recommended to use zsh instead of bash, since it has a lot of useful features that will make your life easier. However, you can use bash if you want.
 
-If you are using **MacOS**, you can use [iTerm2](https://iterm2.com/) instead of the default terminal.
+If you are using **MacOS**, you can use [Warp](https://warp.dev/) instead of the default terminal.
 
 If you decide to use **zsh**, you can use [Oh My Zsh](https://ohmyz.sh/) to have a better terminal experience.
 
