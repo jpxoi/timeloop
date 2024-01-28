@@ -25,14 +25,11 @@ Welcome to the back-end repository of Timeloop. This repository contains the cod
 
 ## Installation
 
-In order to run the back-end locally, you will need to install the required packages and set the required environment variables. Please use a virtual environment to install the required packages.
-
 ### Requirements
 
 - Python 3.10 or higher - [Download here](https://www.python.org/downloads/)
 - MySQL 8.0 or higher - [Download here](https://dev.mysql.com/downloads/mysql/)
 - Git 2.33 or higher - [Download here](https://git-scm.com/downloads)
-- Dotenv 0.19.1 or higher - [Download here](https://pypi.org/project/python-dotenv/)
 
 ### Getting Started
 
@@ -52,21 +49,15 @@ Set the following environment variables:
 
 - `FLASK_APP` - The name of the application. This should be set to `app.py`.
 - `FLASK_ENV` - The environment in which the application is running. This should be set to `development` when running the application locally.
+- `FLASK_DEBUG` - Whether or not to enable debug mode. This should be set to `1` when running the application locally.
 
-By default, the `FLASK_DEBUG` environment variable is set to `True` when the `FLASK_ENV` environment variable is set to `development`. This means that the application will automatically reload when you make changes to the code.
-
-It is recommended that you handle the environment variables using a `.env` file. You can create a `.env` file by running the following command:
-
-```bash
-touch .env
-```
-
-After creating the `.env` file, you can add the environment variables to the file. For example:
+It is recommended that you handle the environment variables using a `.flaskenv` file. You can create a `.flaskenv` file by running the following command:
 
 ```bash
-FLASK_APP=app.py
-FLASK_ENV=development
+touch .flaskenv
 ```
+
+After creating the `.flaskenv` file, you can add the environment variables to the file.
 
 Now, you can run the server by running the following command:
 
@@ -74,7 +65,13 @@ Now, you can run the server by running the following command:
 flask run
 ```
 
-The server will run on port 5000 by default. You can change this in the `main.py` file by adding/changing the `port` parameter of the `app.run()` function.
+The server will run on port 5000 by default. You can change this in your own `.flaskenv` file by adding the following line:
+
+```bash
+FLASK_RUN_PORT=<port-number>
+```
+
+Where `<port-number>` is the port number you want to use.
 
 ## Git Workflow
 
@@ -160,6 +157,16 @@ For this project, we will be using [Vercel](https://vercel.com/) for hosting the
 Given that we are using a self-hosted GitLab instance, we will need to configure [Vercel](https://vercel.com/) to use our self-hosted GitLab instance.
 
 Further instructions on how to configure [Vercel](https://vercel.com/) to use our self-hosted GitLab instance will be provided in the future.
+
+## Environment Variables
+
+To ensure that the application is secure, we will be using environment variables to store sensitive information. This means that we will be using environment variables to store the following information: database credentials, API keys, etc.
+
+The environment variables will be stored in a `.env` file. This file will be ignored by Git, so it won't be pushed to the remote repository. This means that you will need to create the `.env` file manually. The `.env` file should be created in the root directory of the project.
+
+The `.env` file should contain the required environment variables for the application to run. These would be provided by the project leader.
+
+There is a `settings.py` file in the root directory. This file contains will be used to access the environment variables. This means that you will need to modify the `settings.py` file to add the environment variables that you need. However, you should not add any sensitive information to the `settings.py` file. Instead, you should add the environment variables to the `.env` file. Before modifying the `settings.py` file, you should check if the environment variable is already defined in the `settings.py` file. If it is, you should not add it again. If it is not, contact the project leader first.
 
 ## OS Reccomendations
 

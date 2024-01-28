@@ -8,4 +8,4 @@ def home():
     return "Hello World!"
 
 if __name__ == '__main__':
-    APP.run(debug=True)
+    APP.run()
