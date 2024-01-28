@@ -168,6 +168,10 @@ The `.env` file should contain the required environment variables for the applic
 
 There is a `settings.py` file in the root directory. This file contains will be used to access the environment variables. This means that you will need to modify the `settings.py` file to add the environment variables that you need. However, you should not add any sensitive information to the `settings.py` file. Instead, you should add the environment variables to the `.env` file. Before modifying the `settings.py` file, you should check if the environment variable is already defined in the `settings.py` file. If it is, you should not add it again. If it is not, contact the project leader first.
 
+## Testing
+
+For this project, we will be using [Thunder Client](https://www.thunderclient.io/) for testing the API endpoints. This means that we will be using [Thunder Client](https://www.thunderclient.io/) to send requests to the API endpoints and check if the responses are correct.
+
 ## OS Reccomendations
 
 There are no limitations on the OS you can use for this project. However, it is recommended to use **Linux** or **MacOS** instead of **Windows**.
