@@ -25,10 +25,14 @@ Welcome to the back-end repository of Timeloop. This repository contains the cod
 
 ## Installation
 
+In order to run the back-end locally, you will need to install the required packages and set the required environment variables. Please use a virtual environment to install the required packages.
+
 ### Requirements
 
-- Python 3.10 or higher
-- MySQL 8.0 or higher
+- Python 3.10 or higher - [Download here](https://www.python.org/downloads/)
+- MySQL 8.0 or higher - [Download here](https://dev.mysql.com/downloads/mysql/)
+- Git 2.33 or higher - [Download here](https://git-scm.com/downloads)
+- Dotenv 0.19.1 or higher - [Download here](https://pypi.org/project/python-dotenv/)
 
 ### Getting Started
 
@@ -46,9 +50,23 @@ pip install -r requirements.txt
 
 Set the following environment variables:
 
-- `FLASK_APP` - The name of the application. This should be set to `main.py`.
+- `FLASK_APP` - The name of the application. This should be set to `app.py`.
 - `FLASK_ENV` - The environment in which the application is running. This should be set to `development` when running the application locally.
-- `FLASK_DEBUG` - Whether or not to enable debug mode. This should be set to `1` when running the application locally.
+
+By default, the `FLASK_DEBUG` environment variable is set to `True` when the `FLASK_ENV` environment variable is set to `development`. This means that the application will automatically reload when you make changes to the code.
+
+It is recommended that you handle the environment variables using a `.env` file. You can create a `.env` file by running the following command:
+
+```bash
+touch .env
+```
+
+After creating the `.env` file, you can add the environment variables to the file. For example:
+
+```bash
+FLASK_APP=app.py
+FLASK_ENV=development
+```
 
 Now, you can run the server by running the following command:
 
