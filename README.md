@@ -148,7 +148,7 @@ For this project, we will be using [SQL Style Guide](https://www.sqlstyle.guide/
 
 ## Testing
 
-For this project, we will be testing the API endpoints using [Postman](https://www.postman.com/). This means that we will be using [Postman](https://www.postman.com/) to send requests to the API endpoints and check if the responses are correct.
+For this project, we will be using [Thunder Client](https://www.thunderclient.io/) for testing the API endpoints. This means that we will be using [Thunder Client](https://www.thunderclient.io/) to send requests to the API endpoints and check if the responses are correct.
 
 ## Deployment
 
@@ -164,13 +164,16 @@ To ensure that the application is secure, we will be using environment variables
 
 The environment variables will be stored in a `.env` file. This file will be ignored by Git, so it won't be pushed to the remote repository. This means that you will need to create the `.env` file manually. The `.env` file should be created in the root directory of the project.
 
-The `.env` file should contain the required environment variables for the application to run. These would be provided by the project leader.
+The `.env` file should contain the required environment variables for the application to run. The required environment variables are the following:
+
+- `MYSQL_DATABASE_HOST` - The host of the MySQL database. Defaults to `localhost`.
+- `MYSQL_PORT` - The port of the MySQL database. Defaults to `3306`.
+- `MYSQL_DATABASE_USER` - The username of the MySQL database. Defaults to `None`.
+- `MYSQL_DATABASE_PASSWORD` - The password of the MySQL database. Defaults to `None`.
+- `MYSQL_DATABASE_DB` - The name of the MySQL database. Defaults to `None`.
+- `MYSQL_DATABASE_CHARSET` - The charset of the MySQL database. Defaults to `utf-8`.
 
 There is a `settings.py` file in the root directory. This file contains will be used to access the environment variables. This means that you will need to modify the `settings.py` file to add the environment variables that you need. However, you should not add any sensitive information to the `settings.py` file. Instead, you should add the environment variables to the `.env` file. Before modifying the `settings.py` file, you should check if the environment variable is already defined in the `settings.py` file. If it is, you should not add it again. If it is not, contact the project leader first.
-
-## Testing
-
-For this project, we will be using [Thunder Client](https://www.thunderclient.io/) for testing the API endpoints. This means that we will be using [Thunder Client](https://www.thunderclient.io/) to send requests to the API endpoints and check if the responses are correct.
 
 ## OS Reccomendations
 
