@@ -37,24 +37,22 @@ Welcome to the back-end repository of Timeloop. This repository contains the cod
 To get started with the back-end, please be sure to have the requirements installed. After that initialize a new virtual environment by running the following command:
 
 ```bash
-python<version> -m venv <virtual-environment-name>
+python<version> -m venv venv
 ```
 
-Where `<version>` is the version of Python you have installed and `<virtual-environment-name>` is the name of the virtual environment you want to create. It is recommended to name the virtual environment `venv`.
+Where `<version>` is the version of Python you have installed. Please do not change the virtual environment name, as it is already added to the `.gitignore` file. You should use `venv` as the name of the virtual environment.
 
 After initializing the virtual environment, activate it by running the following command:
 
 ```bash
-source <virtual-environment-name>/bin/activate
+source venv/bin/activate
 ```
-
-Where `<virtual-environment-name>` is the name of the virtual environment you created in the previous step.
 
 > Note that to activate your virtual environment on Widows, you will need to run the following code below:
 >
 >```bash
->env/Scripts/activate.bat //In CMD
->env/Scripts/Activate.ps1 //In Powershel
+>venv/Scripts/activate.bat //In CMD
+>venv/Scripts/Activate.ps1 //In Powershel
 >```
 
 Now, clone the repository by running the following command:
