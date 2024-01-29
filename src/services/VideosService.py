@@ -14,7 +14,7 @@ class VideosService():
                 cursor.execute(sql)
                 result = cursor.fetchall()
                 for row in result:
-                    video = (Videos(video[0], video[1], video[2], video[3]))
+                    video = Videos(row[0], row[1], row[2], row[3])
                     videos.append(video.to_json())
             connection.close()
             return videos
