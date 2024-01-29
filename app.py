@@ -28,7 +28,7 @@ def list_videos():
         if len(videos) == 0:
             return jsonify({'message': 'No videos found'})
         else:
-            return jsonify({'videos': videos, 'message': 'success'})
+            return jsonify({'videos': videos, 'message': 'Success'})
     except Exception as e:
         return jsonify({'message': str(e)})
     
@@ -46,7 +46,7 @@ def read_video(id):
                 "views": result[2],
                 "likes": result[3]
             }
-            return jsonify({'video': video, 'message': 'success'})
+            return jsonify({'video': video, 'message': 'Success'})
         else:
             return jsonify({'message': 'Video not found'})
     except Exception as e:
@@ -105,7 +105,7 @@ def delete_video(id):
         return jsonify({'message': str(e)})
 
 def handle_404(error):
-    return jsonify({'message': 'Resource not found'}), 404
+    return jsonify({'message': 'Not Found'}), 404
 
 app.register_error_handler(404, handle_404) # This will handle 404 errors
 
