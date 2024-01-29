@@ -30,10 +30,34 @@ Welcome to the back-end repository of Timeloop. This repository contains the cod
 - Python 3.10 or higher - [Download here](https://www.python.org/downloads/)
 - MySQL 8.0 or higher - [Download here](https://dev.mysql.com/downloads/mysql/)
 - Git 2.33 or higher - [Download here](https://git-scm.com/downloads)
+- Venv 20.25 or higher - [Download here](https://pypi.org/project/virtualenv/)
 
 ### Getting Started
 
-To get started with the back-end, please be sure to have the requirements installed. After that, clone the repository by running the following command:
+To get started with the back-end, please be sure to have the requirements installed. After that initialize a new virtual environment by running the following command:
+
+```bash
+python<version> -m venv <virtual-environment-name>
+```
+
+Where `<version>` is the version of Python you have installed and `<virtual-environment-name>` is the name of the virtual environment you want to create. It is recommended to name the virtual environment `venv`.
+
+After initializing the virtual environment, activate it by running the following command:
+
+```bash
+source <virtual-environment-name>/bin/activate
+```
+
+Where `<virtual-environment-name>` is the name of the virtual environment you created in the previous step.
+
+> Note that to activate your virtual environment on Widows, you will need to run the following code below:
+>
+>```bash
+>env/Scripts/activate.bat //In CMD
+>env/Scripts/Activate.ps1 //In Powershel
+>```
+
+Now, clone the repository by running the following command:
 
 ```bash
 git clone <repository-url>
@@ -45,19 +69,21 @@ After cloning the repository, you can install the required packages by running t
 pip install -r requirements.txt
 ```
 
-Set the following environment variables:
+Set the following environment variables inside a `.flaskenv` file:
 
 - `FLASK_APP` - The name of the application. This should be set to `app.py`.
 - `FLASK_ENV` - The environment in which the application is running. This should be set to `development` when running the application locally.
 - `FLASK_DEBUG` - Whether or not to enable debug mode. This should be set to `1` when running the application locally.
 
-It is recommended that you handle the environment variables using a `.flaskenv` file. You can create a `.flaskenv` file by running the following command:
+Now, set the following environment variables inside a `.env` file:
 
-```bash
-touch .flaskenv
-```
+- `MYSQL_HOST` - The host of the MySQL database. Defaults to `localhost`.
+- `MYSQL_PORT` - The port of the MySQL database. Defaults to `3306`.
+- `MYSQL_USER` - The username of the MySQL database. Defaults to `None`.
+- `MYSQL_PASSWORD` - The password of the MySQL database. Defaults to `None`.
+- `MYSQL_DB` - The name of the MySQL database. Defaults to `None`.
 
-After creating the `.flaskenv` file, you can add the environment variables to the file.
+The `.env` file should be created in the root directory of the project. All the environment variable values will be provided by the project leader in a secure way.
 
 Now, you can run the server by running the following command:
 
@@ -152,28 +178,7 @@ For this project, we will be using [Thunder Client](https://www.thunderclient.io
 
 ## Deployment
 
-For this project, we will be using [Vercel](https://vercel.com/) for hosting the application. All the deployment will be done automatically using [Vercel](https://vercel.com/) and [GitLab](https://gitlab.com/).
-
-Given that we are using a self-hosted GitLab instance, we will need to configure [Vercel](https://vercel.com/) to use our self-hosted GitLab instance.
-
-Further instructions on how to configure [Vercel](https://vercel.com/) to use our self-hosted GitLab instance will be provided in the future.
-
-## Environment Variables
-
-To ensure that the application is secure, we will be using environment variables to store sensitive information. This means that we will be using environment variables to store the following information: database credentials, API keys, etc.
-
-The environment variables will be stored in a `.env` file. This file will be ignored by Git, so it won't be pushed to the remote repository. This means that you will need to create the `.env` file manually. The `.env` file should be created in the root directory of the project.
-
-The `.env` file should contain the required environment variables for the application to run. The required environment variables are the following:
-
-- `MYSQL_DATABASE_HOST` - The host of the MySQL database. Defaults to `localhost`.
-- `MYSQL_PORT` - The port of the MySQL database. Defaults to `3306`.
-- `MYSQL_DATABASE_USER` - The username of the MySQL database. Defaults to `None`.
-- `MYSQL_DATABASE_PASSWORD` - The password of the MySQL database. Defaults to `None`.
-- `MYSQL_DATABASE_DB` - The name of the MySQL database. Defaults to `None`.
-- `MYSQL_DATABASE_CHARSET` - The charset of the MySQL database. Defaults to `utf-8`.
-
-There is a `settings.py` file in the root directory. This file contains will be used to access the environment variables. This means that you will need to modify the `settings.py` file to add the environment variables that you need. However, you should not add any sensitive information to the `settings.py` file. Instead, you should add the environment variables to the `.env` file. Before modifying the `settings.py` file, you should check if the environment variable is already defined in the `settings.py` file. If it is, you should not add it again. If it is not, contact the project leader first.
+For this project, we are still exploring the different options for deployment. We will update this section once we have decided on a deployment method.
 
 ## OS Reccomendations
 
