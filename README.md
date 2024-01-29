@@ -158,19 +158,79 @@ If you don't want to use Visual Studio Code, you can use any other code editor t
 
 - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) for Python support.
 - [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) for Python language server support.
+- [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) for testing the API endpoints.
 
 ### Optional Extensions
 
 - [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens) (optional) for highlighting errors in the editor.
-- [Error Gutters](https://marketplace.visualstudio.com/items?itemName=IgorSbitnev.error-gutters) (optional) for displaying errors in the gutter.
 - [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) (optional) for Git visualization and code annotation.
 - [GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) (optional) for AI-powered code suggestions.
 
 ## Guidelines
 
+### Project Structure
+
+For this project, we will be using a modular project structure. This means that we will be splitting the project into multiple modules. Each module will contain a set of related files.
+
+All the project files will be located inside the `src` directory. Inside the `src` directory, we will have the following directories:
+
+- `database` - Contains the database connection files.
+- `models` - Contains the models of the application.
+- `routes` - Contains the routes of the application.
+- `services` - Contains the services of the application.
+- `utils` - Contains the utility files.
+
+Each of these folder, except for `utils`, have a `__init__.py` file. This file is used to mark the directory as a Python package. This means that we can import files from this directory using the `import` statement.
+
+There is also a `__init__.py` file in the `src` directory. This file is used to mark the `src` directory as a Python package. This means that we can import files from this directory using the `import` statement.
+
+The `database`folder contains the necessary files to make a connection with the SQL server, and it has been already implemented. Therefore, you don't need to change anything in this folder unless requested by the team leader.
+
+The `models` folder will contain the models for each table of the SQL database, and its corresponding methods. This folder is partially implemented. Therefore, you will need to add the necessary models and methods for each table of the SQL database.
+
+The `routes` folder will contain the routes for each endpoint of the API, and is partially implemented. Therefore, you will need to add the necessary routes for each endpoint of the API, and their corresponding methods.
+
+The `services` folder is the data layer of the application. It contains all the database related methods. This includes the methods for creating, reading, updating and deleting data from the database. This folder is partially implemented. Therefore, you will need to add the necessary methods for each table of the SQL database.
+
+The `utils` folder is the business layer of the application. It contains all the business logic related methods. This includes the methods for hashing passwords, verifying passwords, etc. This folder is partially implemented. Therefore, you will need to add the necessary methods for each table of the SQL database.
+
+#### Services vs Utils
+
+If you are not sure whether to add a method to a service or to a utility file, you should ask yourself the following question:
+
+> Does the method interact with the database?
+
+If the answer is yes, then you should add the method to a service. If the answer is no, then you should add the method to a utility file.
+
+### Naming Conventions
+
+For this project, we will be using [snake_case](https://en.wikipedia.org/wiki/Snake_case) for variable and function names and [CamelCase](https://en.wikipedia.org/wiki/Camel_case) for class names.
+
+All python files should be named using [CamelCase](https://en.wikipedia.org/wiki/Camel_case), except for the `__init__.py` files and the `app.py` file.
+
 ### Python
 
+#### Style Guide
+
 For this project, we will be using [PEP 8](https://www.python.org/dev/peps/pep-0008/) as the style guide for Python code. This means that we will be using [snake_case](https://en.wikipedia.org/wiki/Snake_case) for variable and function names and [CamelCase](https://en.wikipedia.org/wiki/Camel_case) for class names.
+
+To check if your code follows the PEP 8 style guide, you can use the [Pylint](https://www.pylint.org/) linter. You can install it by running the following command:
+
+```bash
+pip install pylint
+```
+
+To check if your code follows the PEP 8 style guide, you can run the following command:
+
+```bash
+pylint <file-name>
+```
+
+Where `<file-name>` is the name of the file you want to check.
+
+Perform these checks before pushing your changes to the remote repository.
+
+[Pylint](https://www.pylint.org/) is not included in the `requirements.txt` file, so you will need to install it manually. This is because it is not required for the application to run. Feel free to use any other linter if you want. However, you must follow the PEP 8 style guide.
 
 ### SQL
 
