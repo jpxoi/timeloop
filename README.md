@@ -34,7 +34,9 @@ Welcome to the back-end repository of Timeloop. This repository contains the cod
 
 ### Getting Started
 
-To get started with the back-end, please be sure to have the requirements installed. After that initialize a new virtual environment by running the following command:
+#### Virtual Environment
+
+Before cloning the repository, you should create a virtual environment. This will allow you to install the required packages without affecting your system's Python installation. To create a virtual environment, run the following command:
 
 ```bash
 python<version> -m venv venv
@@ -55,7 +57,11 @@ source venv/bin/activate
 >venv/Scripts/Activate.ps1 //In Powershel
 >```
 
-Now, clone the repository by running the following command:
+If you want to learn more about virtual environments, you can read the [Python Virtual Environments: A Primer](https://realpython.com/python-virtual-environments-a-primer/) article. There is also this [freeCodeCamp Blog Entry](https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/) that explains how to use virtual environments.
+
+#### Repository Cloning
+
+After activating the virtual environment, you can clone the repository by running the following command:
 
 ```bash
 git clone <repository-url>
@@ -173,6 +179,8 @@ For this project, we will be using [SQL Style Guide](https://www.sqlstyle.guide/
 ## Testing
 
 For this project, we will be using [Thunder Client](https://www.thunderclient.io/) for testing the API endpoints. This means that we will be using [Thunder Client](https://www.thunderclient.io/) to send requests to the API endpoints and check if the responses are correct.
+
+Given the nature of the project, we will not be writing any unit tests for the back-end.
 
 ## Deployment
 
