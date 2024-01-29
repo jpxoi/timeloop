@@ -1,4 +1,5 @@
 from decouple import config
+
 class DevConfig():
     # Access the environment variables from the .env file
     MYSQL_HOST = config('MYSQL_HOST')
