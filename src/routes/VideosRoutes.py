@@ -1,22 +1,12 @@
-from Flask import Blueprint
+from Flask import Blueprint, jsonify
+from src.services import VideosService
 
 main = Blueprint('videos_blueprint', __name__)
 
 @main.route('/', methods=['GET'])
 def videos():
     try:
-        cursor = mysql.connection.cursor()
-        sql = "SELECT * FROM videos"
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        videos = []
-        for video in result:
-            videos.append({
-                "id": video[0],
-                "name": video[1],
-                "views": video[2],
-                "likes": video[3]
-            })
+        videos = VideosService.list_videos()
         if len(videos) == 0:
             return jsonify({'message': 'No videos found'})
         else:
