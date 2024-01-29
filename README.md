@@ -17,6 +17,7 @@ Welcome to the back-end repository of Timeloop. This repository contains the cod
   - [Optional Extensions](#optional-extensions)
 - [Guidelines](#guidelines)
   - [Python](#python)
+    - [Style Guide](#style-guide)
   - [SQL](#sql)
 - [Testing](#testing)
 - [Deployment](#deployment)
