@@ -1,26 +1,13 @@
-import os
-
+from decouple import config
 class DevConfig():
     # Access the environment variables from the .env file
-    MYSQL_HOST = os.getenv("MYSQL_HOST")
-    MYSQL_PORT = int(os.getenv("MYSQL_PORT"))
-    MYSQL_USER = os.getenv("MYSQL_USER")
-    MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
-    MYSQL_DB = os.getenv("MYSQL_DB")
-    MYSQL_CHARSET = os.getenv("MYSQL_CHARSET")
-
-
-class ProdConfig():
-    # Access the environment variables from the .env file
-    MYSQL_HOST = os.getenv("MYSQL_HOST")
-    MYSQL_PORT = int(os.getenv("MYSQL_PORT"))
-    MYSQL_USER = os.getenv("MYSQL_USER")
-    MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
-    MYSQL_DB = os.getenv("MYSQL_DB")
-    MYSQL_CHARSET = os.getenv("MYSQL_CHARSET")
+    MYSQL_HOST = config('MYSQL_HOST')
+    MYSQL_PORT = config('MYSQL_PORT')
+    MYSQL_USER = config('MYSQL_USER')
+    MYSQL_PASSWORD = config('MYSQL_PASSWORD')
+    MYSQL_DB = config('MYSQL_DB')
 
 config = {
-    'development': DevConfig,
-    'production': ProdConfig
+    'development': DevConfig
 }
 # PLEASE DO NOT MODIFY THIS FILE WITHOUT THE PERMISSION OF THE BACKEND TEAM LEADER
