@@ -11,4 +11,5 @@ class DevConfig():
 config = {
     'development': DevConfig
 }
+
 # PLEASE DO NOT MODIFY THIS FILE WITHOUT THE PERMISSION OF THE BACKEND TEAM LEADER

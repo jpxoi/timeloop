@@ -1,5 +1,6 @@
 class Users():
 
+    # Constructor
     def __init__(self, user_id, username, first_name, last_name, avatar_url, email, salt, password) -> None:
         self.user_id = user_id
         self.username = username
@@ -10,6 +11,7 @@ class Users():
         self.salt = salt
         self.password = password
 
+    # Convert to JSON
     def to_json(self):
         return {
             "user_id": self.user_id,

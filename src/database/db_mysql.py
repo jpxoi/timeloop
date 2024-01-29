@@ -14,3 +14,5 @@ def get_connection():
         print("ERROR: Failed to connect to database")
         print(e)
         return None
+
+# PLEASE DO NOT MODIFY THIS FILE WITHOUT THE PERMISSION OF THE BACKEND TEAM LEADER
