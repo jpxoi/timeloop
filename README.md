@@ -233,6 +233,9 @@ Perform these checks before pushing your changes to the remote repository.
 
 [Pylint](https://www.pylint.org/) is not included in the `requirements.txt` file, so you will need to install it manually. This is because it is not required for the application to run. Feel free to use any other linter if you want. However, you must follow the PEP 8 style guide.
 
+PLEASE BE AWARE THAT DOCSTRINGS ARE NOT REQUIRED FOR THIS PROJECT. You can ignore the docstring errors that [Pylint](https://www.pylint.org/) shows.
+IT IS ADVISABLE NOT TO USE DOCSTRINGS FOR THIS PROJECT, TO KEEP THE CODE CLEAN AND READABLE.
+
 ### SQL
 
 For this project, we will be using [SQL Style Guide](https://www.sqlstyle.guide/) as the style guide for SQL code. This means that we will be using [snake_case](https://en.wikipedia.org/wiki/Snake_case) for table and column names.
