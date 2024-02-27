@@ -1,5 +1,5 @@
 from flask import Flask
-from .routes import IndexRoutes, CalendarsRoutes, EventsRoutes, VideosRoutes
+from .routes import IndexRoutes, AuthRoutes, UsersRoutes, VideosRoutes
 
 app = Flask(__name__)
 
@@ -12,8 +12,8 @@ def init_app(config):
     app.register_error_handler(404, error404)
 
     app.register_blueprint(IndexRoutes.main, url_prefix='/')
-    app.register_blueprint(CalendarsRoutes.main, url_prefix='/api/v1/calendars')
-    app.register_blueprint(EventsRoutes.main, url_prefix='/api/v1/events')
+    app.register_blueprint(AuthRoutes.main, url_prefix='/api/v1/auth')
+    app.register_blueprint(UsersRoutes.main, url_prefix='/api/v1/users')
     app.register_blueprint(VideosRoutes.main, url_prefix='/api/v1/videos')
 
     return app

@@ -4,11 +4,16 @@ This is the API documentation for the Timeloop API service, which will be used a
 
 ## API Endpoints
 
+The Timeloop API service has different endpoints for different types of requests. The following are the available endpoints for the Timeloop API service:
+
 ### Auth Routes
+
+The auth routes are used to register, log in, and log out a user. The user must be authenticated to access the other routes. The auth routes are as follows:
 
 #### POST /api/v1/auth/signup
 
-- Registers a new user
+Registers a new user
+
 - Request Body:
   - `username`: string
   - `first_name`: string
@@ -109,18 +114,7 @@ This is the API documentation for the Timeloop API service, which will be used a
   - `message`: string
   - `data`: object
 
-#### POST /api/v1/users/:id/calendars
 
-- Creates a new calendar for a user
-- Request Headers:
-  - `api-key`: string
-- Request Body:
-  - `name`: string
-  - `description`: string
-- Response:
-  - `status`: string
-  - `message`: string
-  - `data`: object
 
 #### PUT /api/v1/users/:id/calendars/:calendar_id
 
