@@ -1,7 +1,10 @@
 from flask import Flask
+from flask_cors import CORS
 from .routes import IndexRoutes, AuthRoutes, UsersRoutes, TimezonesRoutes, VideosRoutes
 
 app = Flask(__name__)
+
+CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 
 def error404(error):
     return {'message': 'Not found'}, 404
