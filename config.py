@@ -7,6 +7,8 @@ class DevConfig():
     MYSQL_PASSWORD = config('MYSQL_PASSWORD')
     MYSQL_DB = config('MYSQL_DB')
 
+    JWT_KEY = config('JWT_KEY')
+
 config = {
     'development': DevConfig
 }
