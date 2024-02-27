@@ -1,5 +1,5 @@
 from flask import Flask
-from .routes import IndexRoutes, AuthRoutes, UsersRoutes, VideosRoutes
+from .routes import IndexRoutes, AuthRoutes, UsersRoutes, TimezonesRoutes, VideosRoutes
 
 app = Flask(__name__)
 
@@ -14,6 +14,7 @@ def init_app(config):
     app.register_blueprint(IndexRoutes.main, url_prefix='/')
     app.register_blueprint(AuthRoutes.main, url_prefix='/api/v1/auth')
     app.register_blueprint(UsersRoutes.main, url_prefix='/api/v1/users')
+    app.register_blueprint(TimezonesRoutes.main, url_prefix='/api/v1/timezones')
     app.register_blueprint(VideosRoutes.main, url_prefix='/api/v1/videos')
 
     return app
