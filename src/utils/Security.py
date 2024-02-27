@@ -3,7 +3,7 @@ import datetime
 import pytz
 import jwt
 
-class Secyrity():
+class Security():
 
     tz = pytz.timezone('Europe/London')
     secret = config('JWT_KEY')
