@@ -1,19 +1,20 @@
 from src.database.db_mysql import get_connection
 from src.models.UsersModel import Users
 from random import randint
-import bcrypt
+import bcrypt # For password hashing and salting
 
 class AuthService():
 
+# Main Methods
     @classmethod
     def sign_up(cls, username, first_name, last_name, email, password):
         #Generate new user id
-        user_id = 1000 + randint(0, 1000)
+        user_id = 1000 + randint(0, 8999)
         id_exists = AuthService.user_id_exists(user_id)
 
         # Ensure that the user id is unique
         while id_exists:
-            user_id = 1000 + randint(0, 1000)
+            user_id = 1000 + randint(0, 8999)
             id_exists = AuthService.user_id_exists(user_id)
 
         # Check if the user already exists
@@ -64,66 +65,6 @@ class AuthService():
                     'status': 'error',
                     'message': str(e)
                 }
-
-    @classmethod
-    def user_email_exists(cls, email):
-        try:
-            connection = get_connection()
-            with connection.cursor() as cursor:
-                sql = "SELECT * FROM users WHERE email = %s"
-                cursor.execute(sql, (email))
-                user = cursor.fetchone()
-            connection.close()
-
-            if user:
-                return True
-            else:
-                return False
-        except Exception as e:
-            return {
-                'status': 'error',
-                'message': str(e)
-            }
-
-    @classmethod
-    def user_username_exists(cls, username):
-        try:
-            connection = get_connection()
-            with connection.cursor() as cursor:
-                sql = "SELECT * FROM users WHERE username = %s"
-                cursor.execute(sql, (username))
-                user = cursor.fetchone()
-            connection.close()
-
-            if user:
-                return True
-            else:
-                return False
-        except Exception as e:
-            return {
-                'status': 'error',
-                'message': str(e)
-            }
-
-    @classmethod
-    def user_id_exists(cls, user_id):
-        try:
-            connection = get_connection()
-            with connection.cursor() as cursor:
-                sql = "SELECT * FROM users WHERE user_id = %s"
-                cursor.execute(sql, (user_id))
-                user = cursor.fetchone()
-            connection.close()
-
-            if user:
-                return True
-            else:
-                return False
-        except Exception as e:
-            return {
-                'status': 'error',
-                'message': str(e)
-            }
 
     @classmethod
     def login(cls, username, password):
@@ -188,3 +129,65 @@ class AuthService():
                 'status': 'error',
                 'message': str(e)
             }
+
+# Auxiliary Methods
+    @classmethod
+    def user_email_exists(cls, email):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM users WHERE email = %s"
+                cursor.execute(sql, (email))
+                user = cursor.fetchone()
+            connection.close()
+
+            if user:
+                return True
+            else:
+                return False
+        except Exception as e:
+            return {
+                'status': 'error',
+                'message': str(e)
+            }
+
+    @classmethod
+    def user_username_exists(cls, username):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM users WHERE username = %s"
+                cursor.execute(sql, (username))
+                user = cursor.fetchone()
+            connection.close()
+
+            if user:
+                return True
+            else:
+                return False
+        except Exception as e:
+            return {
+                'status': 'error',
+                'message': str(e)
+            }
+
+    @classmethod
+    def user_id_exists(cls, user_id):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM users WHERE user_id = %s"
+                cursor.execute(sql, (user_id))
+                user = cursor.fetchone()
+            connection.close()
+
+            if user:
+                return True
+            else:
+                return False
+        except Exception as e:
+            return {
+                'status': 'error',
+                'message': str(e)
+            }
+
