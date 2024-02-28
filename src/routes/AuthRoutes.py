@@ -12,23 +12,18 @@ def signup():
     email = request.json['email']
     password = request.json['password']
 
-    salt = bcrypt.gensalt()
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-
     try:
-        # Create new user in the database
-        # user = User(username, first_name, last_name, email, hashed_password)
-        # user.save()
-        
-        # Return if successful
-        return jsonify({'message': 'User created successfully'})
+        return jsonify(AuthService.sign_up(username, first_name, last_name, email, password))
     except Exception as e:
         return jsonify({'message': str(e)})
     
 @main.route('/login', methods=['POST'])
 def login():
+    username = request.json['username']
+    password = request.json['password']
+
     try:
-        return jsonify({'message': 'This is the login route. It should login the user'})
+        return jsonify(AuthService.login(username, password))
     except Exception as e:
         return jsonify({'message': str(e)})
     
