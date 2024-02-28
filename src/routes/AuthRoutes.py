@@ -16,7 +16,7 @@ def signup():
         return jsonify(AuthService.sign_up(username, first_name, last_name, email, password))
     except Exception as e:
         return jsonify({'message': str(e)})
-    
+
 @main.route('/login', methods=['POST'])
 def login():
     username = request.json['username']
@@ -26,7 +26,7 @@ def login():
         return jsonify(AuthService.login(username, password))
     except Exception as e:
         return jsonify({'message': str(e)})
-    
+
 @main.route('/logout', methods=['POST'])
 def logout():
     try:
