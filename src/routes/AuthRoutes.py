@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-import bcrypt
 from src.services.AuthService import AuthService
 
 main = Blueprint('auth_blueprint', __name__)

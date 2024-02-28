@@ -1,5 +1,6 @@
 from src.database.db_mysql import get_connection
 from src.models.UsersModel import Users
+from src.services.CalendarService import CalendarService
 from random import randint
 import bcrypt # For password hashing and salting
 
@@ -46,17 +47,27 @@ class AuthService():
                     cursor.execute(sql, (user_id, username, first_name, last_name, avatar_url, email, salt, hashed_password))
                     connection.commit()
                 connection.close()
+
+                # Create users default calendar
+                calendar_name = 'Calendar'
+                timezone = 'UTC'
+                
+                new_calendar = CalendarService.new_calendar(user_id, calendar_name, timezone)
                 
                 return {
                     'status': 'success',
                     'message': 'User created successfully',
                     'data': {
-                        'user_id': user_id,
-                        'username': username,
-                        'first_name': first_name,
-                        'last_name': last_name,
-                        'avatar_url': avatar_url,
-                        'email': email
+                        'user_data' :
+                        {
+                            'user_id': user_id,
+                            'username': username,
+                            'first_name': first_name,
+                            'last_name': last_name,
+                            'avatar_url': avatar_url,
+                            'email': email
+                        },
+                        'calendar_data': new_calendar
                     }
                 }
 

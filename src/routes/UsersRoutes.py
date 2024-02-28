@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify
+from src.services.UsersService import UsersService
 
 main = Blueprint('users_blueprint', __name__)
 
@@ -26,7 +27,7 @@ def update_user(id):
 @main.route('/<int:id>', methods=['DELETE'])
 def delete_user(id):
     try:
-        return jsonify({'message': 'This is the user route', 'id': id})
+        return jsonify(UsersService.delete_user(id))
     except Exception as e:
         return jsonify({'message': str(e)})
     
