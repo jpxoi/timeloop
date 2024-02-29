@@ -9,12 +9,18 @@ class Security():
     secret = config('JWT_KEY')
     session_duration = 1440 # 24 hours
 
+    # 24 hours = 1440 minutes
+    # 48 hours = 2880 minutes
+    # 72 hours = 4320 minutes
+    # 1 week = 10080 minutes
+    # 1 month = 43200 minutes
+
     @classmethod
     def generate_token(cls, authenticated_user):
         payload = {
             'iat': datetime.datetime.now(tz=cls.tz),
             'exp': datetime.datetime.now(tz=cls.tz) + datetime.timedelta(minutes=cls.session_duration),
-            'user_id': authenticated_user.id,
+            'user_id': authenticated_user.user_id,
             'username': authenticated_user.username,
             'first_name': authenticated_user.first_name,
             'last_name': authenticated_user.last_name,
