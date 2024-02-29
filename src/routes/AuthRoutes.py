@@ -20,7 +20,8 @@ def signup():
                 'message': 'Username already taken'
             }, 409
         
-        return jsonify(AuthService.sign_up(data['username'], data['first_name'], data['last_name'], data['email'], data['password'])), 201
+        response = AuthService.sign_up(data['username'], data['first_name'], data['last_name'], data['email'], data['password'])
+        return jsonify(response[0]), response[1]
     except Exception as e:
         return jsonify({'message': str(e)}), 500
 
@@ -29,7 +30,8 @@ def login():
     data = request.json
 
     try:
-        return jsonify(AuthService.login(data['username'], data['password'])), 200
+        response = AuthService.login(data['username'], data['password'])
+        return jsonify(response[0]), response[1]
     except Exception as e:
         return jsonify({'message': str(e)}), 500
 

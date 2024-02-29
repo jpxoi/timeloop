@@ -55,7 +55,7 @@ class AuthService():
                     },
                     'calendar_data': new_calendar
                 }
-            }
+            }, 201
 
         except Exception as e:
             return {
@@ -94,25 +94,25 @@ class AuthService():
                             'avatar_url': user[4],
                             'email': user[5]
                         }
-                    }
+                    }, 200
 
                 else:
                     return {
                         'status': 'error',
                         'message': 'Invalid password'
-                    }
+                    }, 401
 
             else:
                 return {
                     'status': 'error',
                     'message': 'User not found'
-                }
+                }, 404
 
         except Exception as e:
             return {
                 'status': 'error',
                 'message': str(e)
-            }
+            }, 500
         
     @classmethod
     def logout(cls):
