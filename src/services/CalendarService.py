@@ -22,16 +22,13 @@ class CalendarService():
                 cursor.execute(sql, (calendar_id, user_id, calendar_name, timezone))
                 connection.commit()
             connection.close()
+
+            new_calendar = Calendars(calendar_id, user_id, calendar_name, timezone)
             
             return {
                 'status': 'success',
                 'message': 'Calendar created successfully',
-                'data': {
-                    'calendar_id': calendar_id,
-                    'user_id': user_id,
-                    'calendar_name': calendar_name,
-                    'timezone': timezone
-                }
+                'data': new_calendar.to_json()
             }
         
         except Exception as e:
