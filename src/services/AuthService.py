@@ -1,8 +1,10 @@
 from src.database.db_mysql import get_connection
 from src.models.UsersModel import Users
 from src.services.CalendarService import CalendarService
+from src.utils.Security import Security
 from random import randint
-import bcrypt # For password hashing and salting
+import bcrypt
+
 
 class AuthService():
 
@@ -38,22 +40,15 @@ class AuthService():
             calendar_name = 'Calendar'
             timezone = 'UTC'
             
+            new_user = Users(user_id, username, first_name, last_name, avatar_url, email, salt, hashed_password)
             new_calendar = CalendarService.new_calendar(user_id, calendar_name, timezone)
             
             return {
                 'status': 'success',
                 'message': 'User created successfully',
                 'data': {
-                    'user_data' :
-                    {
-                        'user_id': user_id,
-                        'username': username,
-                        'first_name': first_name,
-                        'last_name': last_name,
-                        'avatar_url': avatar_url,
-                        'email': email
-                    },
-                    'calendar_data': new_calendar
+                    'user_data' : new_user.to_json(),
+                    'calendar_data': new_calendar.to_json()
                 }
             }, 201
 
@@ -83,17 +78,14 @@ class AuthService():
                 print(salt.encode('utf-8'))
 
                 if hashed_password == user[7].encode('utf-8'):
+
+                    authenticated_user = Users(user[0], user[1], user[2], user[3], user[4], user[5], None, None)
+                    encoded_token = Security.generate_token(authenticated_user)
+
                     return {
                         'status': 'success',
                         'message': 'Login successful',
-                        'data': {
-                            'user_id': user[0],
-                            'username': user[1],
-                            'first_name': user[2],
-                            'last_name': user[3],
-                            'avatar_url': user[4],
-                            'email': user[5]
-                        }
+                        'token': encoded_token
                     }, 200
 
                 else:
