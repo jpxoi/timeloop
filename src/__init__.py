@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from .routes import IndexRoutes, AuthRoutes, UsersRoutes, TimezonesRoutes
+from .routes import IndexRoutes, AuthRoutes, UsersRoutes
 
 app = Flask(__name__)
 
@@ -17,6 +17,6 @@ def init_app(config):
     app.register_blueprint(IndexRoutes.main, url_prefix='/')
     app.register_blueprint(AuthRoutes.main, url_prefix='/api/v1/auth')
     app.register_blueprint(UsersRoutes.main, url_prefix='/api/v1/users')
-    app.register_blueprint(TimezonesRoutes.main, url_prefix='/api/v1/timezones')
+
 
     return app
