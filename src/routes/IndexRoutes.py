@@ -7,6 +7,14 @@ main = Blueprint('index_blueprint', __name__)
 @main.route('/')
 def index():
     try:
-        return jsonify({'status': 'success', 'message': 'You have reached the index route! To learn more about the available routes, visit the documentation at...'})
+        data = {
+            'status': 'success',
+            'message': 'You have reached the index route! To learn more about the available routes, visit the documentation at...'
+        }
+        return data, 200
     except Exception as e:
-        return jsonify({'message': str(e)})
+        data = {
+            'status': 'error',
+            'message': str(e)
+        }
+        return data, 500
