@@ -1,17 +1,16 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, request, jsonify
 from src.services.UsersService import UsersService
+from src.utils.Security import Security
 
 main = Blueprint('users_blueprint', __name__)
 
-@main.route('/', methods=['GET'])
-def get_users():
-    try:
-        return jsonify({'message': 'This is the users route. It should return all users'})
-    except Exception as e:
-        return jsonify({'message': str(e)})
-    
 @main.route('/<int:id>', methods=['GET'])
 def get_user(id):
+    has_access = Security.verify_token(request.headers)
+
+    if not has_access:
+        return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
+
     try:
         return jsonify({'message': 'This is the user route. It should return user information with the given id.', 'id': id})
     except Exception as e:
@@ -26,6 +25,11 @@ def update_user(id):
 
 @main.route('/<int:id>', methods=['DELETE'])
 def delete_user(id):
+    has_access = Security.verify_token(request.headers)
+
+    if not has_access:
+        return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
+
     try:
         response = UsersService.delete_user(id)
         return jsonify(response[0]), response[1]
