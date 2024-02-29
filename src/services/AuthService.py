@@ -18,64 +18,50 @@ class AuthService():
             user_id = 1000 + randint(0, 8999)
             id_exists = AuthService.user_id_exists(user_id)
 
-        # Check if the user already exists
-        if AuthService.user_email_exists(email):
+        # Handle password hashing and salting
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+
+        # Define a default profile picture
+        avatar_url = 'https://grallc.github.io/img/avatar.jpg'
+
+        # Create a new user
+        try: 
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                sql = "INSERT INTO users (user_id, username, first_name, last_name, avatar_url, email, salt, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+                cursor.execute(sql, (user_id, username, first_name, last_name, avatar_url, email, salt, hashed_password))
+                connection.commit()
+            connection.close()
+
+            # Create users default calendar
+            calendar_name = 'Calendar'
+            timezone = 'UTC'
+            
+            new_calendar = CalendarService.new_calendar(user_id, calendar_name, timezone)
+            
+            return {
+                'status': 'success',
+                'message': 'User created successfully',
+                'data': {
+                    'user_data' :
+                    {
+                        'user_id': user_id,
+                        'username': username,
+                        'first_name': first_name,
+                        'last_name': last_name,
+                        'avatar_url': avatar_url,
+                        'email': email
+                    },
+                    'calendar_data': new_calendar
+                }
+            }
+
+        except Exception as e:
             return {
                 'status': 'error',
-                'message': 'An account with this email already exists'
-            }
-        
-        elif AuthService.user_username_exists(username):
-            return {
-                'status': 'error',
-                'message': 'Username already taken'
-            }
-
-        else:
-            # Handle password hashing and salting
-            salt = bcrypt.gensalt()
-            hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-
-            # Define a default profile picture
-            avatar_url = 'https://grallc.github.io/img/avatar.jpg'
-
-            # Create a new user
-            try: 
-                connection = get_connection()
-                with connection.cursor() as cursor:
-                    sql = "INSERT INTO users (user_id, username, first_name, last_name, avatar_url, email, salt, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-                    cursor.execute(sql, (user_id, username, first_name, last_name, avatar_url, email, salt, hashed_password))
-                    connection.commit()
-                connection.close()
-
-                # Create users default calendar
-                calendar_name = 'Calendar'
-                timezone = 'UTC'
-                
-                new_calendar = CalendarService.new_calendar(user_id, calendar_name, timezone)
-                
-                return {
-                    'status': 'success',
-                    'message': 'User created successfully',
-                    'data': {
-                        'user_data' :
-                        {
-                            'user_id': user_id,
-                            'username': username,
-                            'first_name': first_name,
-                            'last_name': last_name,
-                            'avatar_url': avatar_url,
-                            'email': email
-                        },
-                        'calendar_data': new_calendar
-                    }
-                }
-
-            except Exception as e:
-                return {
-                    'status': 'error',
-                    'message': str(e)
-                }
+                'message': str(e)
+            }, 500
 
     @classmethod
     def login(cls, username, password):
