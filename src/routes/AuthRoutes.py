@@ -5,30 +5,37 @@ main = Blueprint('auth_blueprint', __name__)
 
 @main.route('/signup', methods=['POST'])
 def signup():
-    username = request.json['username']
-    first_name = request.json['first_name']
-    last_name = request.json['last_name']
-    email = request.json['email']
-    password = request.json['password']
+    data = request.json
 
     try:
-        return jsonify(AuthService.sign_up(username, first_name, last_name, email, password))
+        if AuthService.user_email_exists(data['email']):
+            return {
+                'status': 'error',
+                'message': 'An account with this email already exists'
+            }, 409
+        
+        if AuthService.user_username_exists(data['username']):
+            return {
+                'status': 'error',
+                'message': 'Username already taken'
+            }, 409
+        
+        return jsonify(AuthService.sign_up(data['username'], data['first_name'], data['last_name'], data['email'], data['password'])), 201
     except Exception as e:
-        return jsonify({'message': str(e)})
+        return jsonify({'message': str(e)}), 500
 
 @main.route('/login', methods=['POST'])
 def login():
-    username = request.json['username']
-    password = request.json['password']
+    data = request.json
 
     try:
-        return jsonify(AuthService.login(username, password))
+        return jsonify(AuthService.login(data['username'], data['password'])), 200
     except Exception as e:
-        return jsonify({'message': str(e)})
+        return jsonify({'message': str(e)}), 500
 
 @main.route('/logout', methods=['POST'])
 def logout():
     try:
-        return jsonify({'message': 'This is the logout route. It should logout the user'})
+        return jsonify({'message': 'This is the logout route. It should logout the user'}), 200
     except Exception as e:
-        return jsonify({'message': str(e)})
+        return jsonify({'message': str(e)}), 500
