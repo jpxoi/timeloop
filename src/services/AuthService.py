@@ -42,14 +42,13 @@ class AuthService():
             
             new_user = Users(user_id, username, first_name, last_name, avatar_url, email, salt, hashed_password)
             new_calendar = CalendarService.new_calendar(user_id, calendar_name, timezone)
+
+            print(new_calendar)
             
             return {
                 'status': 'success',
                 'message': 'User created successfully',
-                'data': {
-                    'user_data' : new_user.to_json(),
-                    'calendar_data': new_calendar.to_json()
-                }
+                'data': new_user.to_json(),
             }, 201
 
         except Exception as e:
