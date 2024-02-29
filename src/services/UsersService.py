@@ -5,6 +5,34 @@ from random import randint
 class UsersService():
 
     @classmethod
+    def get_user(cls, user_id):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM users WHERE user_id = %s"
+                cursor.execute(sql, (user_id))
+                result = cursor.fetchone()
+            connection.close()
+            
+            if result:
+                return {
+                    'status': 'success',
+                    'data': Users(*result).to_json()
+                }, 200
+            
+            else:
+                return {
+                    'status': 'error',
+                    'message': 'User not found'
+                }, 404
+        
+        except Exception as e:
+            return {
+                'status': 'error',
+                'message': str(e)
+            }, 500
+
+    @classmethod
     def delete_user(cls, user_id):
         try:
             connection = get_connection()
