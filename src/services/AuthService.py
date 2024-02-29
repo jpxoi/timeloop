@@ -8,10 +8,10 @@ import bcrypt
 
 class AuthService():
 
-# Main Methods
+    # Main Methods
     @classmethod
     def sign_up(cls, username, first_name, last_name, email, password):
-        #Generate new user id
+        # Generate new user id
         user_id = 1000 + randint(0, 8999)
         id_exists = AuthService.user_id_exists(user_id)
 
@@ -28,7 +28,7 @@ class AuthService():
         avatar_url = 'https://grallc.github.io/img/avatar.jpg'
 
         # Create a new user
-        try: 
+        try:
             connection = get_connection()
             with connection.cursor() as cursor:
                 sql = "INSERT INTO users (user_id, username, first_name, last_name, avatar_url, email, salt, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
@@ -39,12 +39,13 @@ class AuthService():
             # Create users default calendar
             calendar_name = 'Calendar'
             timezone = 'UTC'
-            
+
             new_user = Users(user_id, username, first_name, last_name, avatar_url, email, salt, hashed_password)
-            new_calendar = CalendarService.new_calendar(user_id, calendar_name, timezone)
+            new_calendar = CalendarService.new_calendar(
+                user_id, calendar_name, timezone)
 
             print(new_calendar)
-            
+
             return {
                 'status': 'success',
                 'message': 'User created successfully',
@@ -71,14 +72,16 @@ class AuthService():
                 # Position 6 of the user tuple contains the salt
                 # Position 7 of the user tuple contains the hashed password
                 salt = user[6]
-                hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt.encode('utf-8'))
+                hashed_password = bcrypt.hashpw(
+                    password.encode('utf-8'), salt.encode('utf-8'))
 
                 print(salt)
                 print(salt.encode('utf-8'))
 
                 if hashed_password == user[7].encode('utf-8'):
 
-                    authenticated_user = Users(user[0], user[1], user[2], user[3], user[4], user[5], None, None)
+                    authenticated_user = Users(
+                        user[0], user[1], user[2], user[3], user[4], user[5], None, None)
                     encoded_token = Security.generate_token(authenticated_user)
 
                     return {
@@ -104,7 +107,7 @@ class AuthService():
                 'status': 'error',
                 'message': str(e)
             }, 500
-        
+
     @classmethod
     def logout(cls):
         try:
@@ -178,4 +181,3 @@ class AuthService():
                 'status': 'error',
                 'message': str(e)
             }
-
