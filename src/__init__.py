@@ -7,7 +7,9 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 
 def error404(error):
-    return {'message': 'Not found'}, 404
+    message = error.description
+    status = error.code
+    return {'status': 'error','message': message}, 404
 
 def init_app(config):
     app.config.from_object(config)

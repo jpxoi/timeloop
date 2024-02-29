@@ -2,6 +2,7 @@ from src.database.db_mysql import get_connection
 from src.models.CalendarsModel import Calendars
 from random import randint
 
+
 class CalendarService():
 
     @classmethod
@@ -19,18 +20,20 @@ class CalendarService():
             connection = get_connection()
             with connection.cursor() as cursor:
                 sql = "INSERT INTO calendars (calendar_id, user_id, calendar_name, timezone) VALUES (%s, %s, %s, %s)"
-                cursor.execute(sql, (calendar_id, user_id, calendar_name, timezone))
+                cursor.execute(
+                    sql, (calendar_id, user_id, calendar_name, timezone))
                 connection.commit()
             connection.close()
 
-            new_calendar = Calendars(calendar_id, user_id, calendar_name, timezone)
-            
+            new_calendar = Calendars(
+                calendar_id, user_id, calendar_name, timezone)
+
             return {
                 'status': 'success',
                 'message': 'Calendar created successfully',
                 'data': new_calendar.to_json()
             }
-        
+
         except Exception as e:
             return {
                 'status': 'error',
@@ -46,12 +49,12 @@ class CalendarService():
                 cursor.execute(sql, (calendar_id))
                 result = cursor.fetchone()
             connection.close()
-            
+
             if result:
                 return True
             else:
                 return False
-            
+
         except Exception as e:
             return {
                 'status': 'error',
