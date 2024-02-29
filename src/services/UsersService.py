@@ -18,16 +18,16 @@ class UsersService():
                 return {
                     'status': 'error',
                     'message': 'User not found'
-                }
+                }, 404
             
             else:
                 return {
                     'status': 'success',
                     'message': 'User deleted successfully'
-                }
+                }, 200
         
         except Exception as e:
             return {
                 'status': 'error',
                 'message': str(e)
-            }
+            }, 500

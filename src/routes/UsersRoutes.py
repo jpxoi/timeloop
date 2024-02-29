@@ -27,9 +27,10 @@ def update_user(id):
 @main.route('/<int:id>', methods=['DELETE'])
 def delete_user(id):
     try:
-        return jsonify(UsersService.delete_user(id))
+        response = UsersService.delete_user(id)
+        return jsonify(response[0]), response[1]
     except Exception as e:
-        return jsonify({'message': str(e)})
+        return jsonify({'message': str(e)}), 500
     
 ### Users Calendar Routes
 @main.route('/<int:id>/calendars', methods=['GET'])
