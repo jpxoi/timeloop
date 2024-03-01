@@ -10,7 +10,7 @@ class UsersService():
         try:
             connection = get_connection()
             with connection.cursor() as cursor:
-                sql = "SELECT * FROM users WHERE user_id = %s"
+                sql = "SELECT user_id, username, first_name, last_name, email, avatar_url FROM users WHERE user_id = %s"
                 cursor.execute(sql, (user_id))
                 result = cursor.fetchone()
             connection.close()
@@ -18,7 +18,7 @@ class UsersService():
             if result:
                 return {
                     'status': 'success',
-                    'data': Users(*result).to_json()
+                    'data': Users(*result, None, None).to_json()
                 }, 200
 
             else:
