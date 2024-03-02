@@ -2,6 +2,7 @@ from src.database.db_mysql import get_connection
 
 from src.models.VideosModel import Videos
 
+
 class VideosService():
 
     @classmethod
