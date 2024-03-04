@@ -49,7 +49,14 @@ class AuthService():
             return {
                 'status': 'success',
                 'message': 'User created successfully',
-                'data': new_user.to_json(),
+                'data': {
+                    'user_id': user_id,
+                    'username': username,
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'email': email,
+                    'avatar_url': avatar_url
+                }
             }, 201
 
         except Exception as e:
