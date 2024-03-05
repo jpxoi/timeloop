@@ -4,7 +4,7 @@ from src.utils.Security import Security
 
 main = Blueprint('users_blueprint', __name__)
 
-
+# Users Routes
 @main.route('/<int:id>', methods=['GET'])
 def get_user(id):
     has_access = Security.verify_token(request.headers)
@@ -111,6 +111,7 @@ def delete_user_calendar(id, calendar_id):
     except Exception as e:
         return jsonify({'message': str(e)})
 
+
 # Users Calendar Events Routes
 @main.route('/<int:id>/calendars/<int:calendar_id>/events', methods=['GET'])
 def get_user_calendar_events(id, calendar_id):
@@ -124,7 +125,6 @@ def get_user_calendar_events(id, calendar_id):
     except Exception as e:
         return jsonify({'message': str(e)})
 
-
 @main.route('/<int:id>/calendars/<int:calendar_id>/events', methods=['POST'])
 def create_user_calendar_event(id, calendar_id):
     has_access = Security.verify_token(request.headers)
@@ -136,7 +136,6 @@ def create_user_calendar_event(id, calendar_id):
         return jsonify({'message': 'This is the user calendar events route. It should create a new user calendar events with the given id.', 'id': id, 'calendar_id': calendar_id})
     except Exception as e:
         return jsonify({'message': str(e)})
-
 
 @main.route('/<int:id>/calendars/<int:calendar_id>/events/<int:event_id>', methods=['GET'])
 def get_user_calendar_event_by_id(id, calendar_id, event_id):
@@ -150,7 +149,6 @@ def get_user_calendar_event_by_id(id, calendar_id, event_id):
     except Exception as e:
         return jsonify({'message': str(e)})
 
-
 @main.route('/<int:id>/calendars/<int:calendar_id>/events/<int:event_id>', methods=['PUT'])
 def update_user_calendar_event(id, calendar_id, event_id):
     has_access = Security.verify_token(request.headers)
@@ -162,7 +160,6 @@ def update_user_calendar_event(id, calendar_id, event_id):
         return jsonify({'message': 'This is the user calendar events route. It should update user calendar events with the given id.', 'id': id, 'calendar_id': calendar_id, 'event_id': event_id})
     except Exception as e:
         return jsonify({'message': str(e)})
-
 
 @main.route('/<int:id>/calendars/<int:calendar_id>/events/<int:event_id>', methods=['DELETE'])
 def delete_user_calendar_event(id, calendar_id, event_id):
