@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from src.services.UsersService import UsersService
 from src.services.CalendarService import CalendarService
-from src.services.EventsService import EventsService
+# from src.services.EventsService import EventsService
 from src.utils.Security import Security
 
 main = Blueprint('users_blueprint', __name__)
@@ -27,13 +27,8 @@ def update_user(id):
     if not has_access:
         return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
 
-    first_name = request.json.get('first_name')
-    last_name = request.json.get('last_name')
-    email = request.json.get('email')
-    avatar_url = request.json.get('avatar_url')
-
     try:
-        response = UsersService.update_user(id, first_name, last_name, email, avatar_url)
+        response = UsersService.update_user(id, request.json.get('first_name'), request.json.get('last_name'), request.json.get('email'), request.json.get('avatar_url'))
         return jsonify(response[0]), response[1]
     except Exception as e:
         return jsonify({'message': str(e)})
@@ -54,7 +49,7 @@ def delete_user(id):
 
 # Users Calendar Routes
 @main.route('/<int:id>/calendars', methods=['GET'])
-def get_user_calendar(id):
+def get_user_calendars(id):
     has_access = Security.verify_token(request.headers)
 
     if not has_access:
@@ -73,7 +68,8 @@ def create_user_calendar(id):
         return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
 
     try:
-        return jsonify({'message': 'This is the user calendar route. It should create a new user calendar with the given id.', 'id': id})
+        response = CalendarService.new_calendar(id, request.json.get('calendar_name'), request.json.get('timezone'))
+        return jsonify(response[0]), response[1]
     except Exception as e:
         return jsonify({'message': str(e)})
 
