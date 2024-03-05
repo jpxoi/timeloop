@@ -60,3 +60,6 @@ class CalendarService():
                 'status': 'error',
                 'message': str(e)
             }
+
+    @classmethod
+    def get_user_calendars(cls, user_id)
