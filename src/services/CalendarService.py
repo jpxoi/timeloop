@@ -62,4 +62,9 @@ class CalendarService():
             }
 
     @classmethod
-    def get_user_calendars(cls, user_id)
+    def get_user_calendars(cls, user_id):
+        pass
+
+    @classmethod
+    def get_calendar(cls, calendar_id):
+        pass

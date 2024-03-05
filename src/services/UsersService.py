@@ -60,7 +60,6 @@ class UsersService():
                 'status': 'error',
                 'message': str(e)
             }, 500
-        
 
     @classmethod
     def delete_user(cls, user_id):
