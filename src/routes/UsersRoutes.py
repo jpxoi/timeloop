@@ -1,5 +1,7 @@
 from flask import Blueprint, request, jsonify
 from src.services.UsersService import UsersService
+from src.services.CalendarService import CalendarService
+from src.services.EventsService import EventsService
 from src.utils.Security import Security
 
 main = Blueprint('users_blueprint', __name__)
