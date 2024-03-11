@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from src.services.UsersService import UsersService
 from src.services.CalendarService import CalendarService
-# from src.services.EventsService import EventsService
+from src.services.EventsService import EventsService
 from src.utils.Security import Security
 
 main = Blueprint('users_blueprint', __name__)
@@ -119,7 +119,8 @@ def get_user_calendar_events(id, calendar_id):
         return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
 
     try:
-        return jsonify({'message': 'This is the user calendar events route. It should return user calendar events with the given id.', 'id': id, 'calendar_id': calendar_id})
+        response = EventsService.get_events(calendar_id)
+        return jsonify(response[0]), response[1]
     except Exception as e:
         return jsonify({'message': str(e)})
 
