@@ -132,7 +132,8 @@ def create_user_calendar_event(id, calendar_id):
         return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
 
     try:
-        return jsonify({'message': 'This is the user calendar events route. It should create a new user calendar events with the given id.', 'id': id, 'calendar_id': calendar_id})
+        response = EventsService.new_event(calendar_id, request.json.get('event_name'), request.json.get('event_description'), request.json.get('event_start'), request.json.get('event_end'))
+        return jsonify(response[0]), response[1]
     except Exception as e:
         return jsonify({'message': str(e)})
 

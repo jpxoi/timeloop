@@ -79,7 +79,41 @@ class EventsService():
 
     @classmethod
     def get_event(cls, user_id, calendar_id, event_id):
-        pass
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM events WHERE event_id = %s AND calendar_id = %s AND user_id = %s"
+                cursor.execute(sql, (event_id, calendar_id, user_id))
+                result = cursor.fetchone()
+            connection.close()
+
+            if not result:
+                return {
+                    'status': 'error',
+                    'message': 'Event not found'
+                }, 404
+
+            event = {
+                'event_id': result[0],
+                'calendar_id': result[1],
+                'user_id': result[2],
+                'event_name': result[3],
+                'event_description': result[4],
+                'event_start': result[5],
+                'event_end': result[6]
+            }
+
+            return {
+                'status': 'success',
+                'message': 'Event retrieved successfully',
+                'data': event
+            }, 200
+
+        except Exception as e:
+            return {
+                'status': 'error',
+                'message': str(e)
+            }
 
     @classmethod
     def update_event(cls, user_id, calendar_id, event_id, event_name, event_description, event_start, event_end):

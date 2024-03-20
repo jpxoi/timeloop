@@ -33,7 +33,7 @@ class CalendarService():
                 'status': 'success',
                 'message': 'Calendar created successfully',
                 'data': new_calendar.to_json()
-            }
+            }, 201
 
         except Exception as e:
             return {
