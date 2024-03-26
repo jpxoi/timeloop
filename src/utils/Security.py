@@ -38,8 +38,9 @@ class Security():
 
             try:
                 payload = jwt.decode(encoded_token, cls.secret, algorithms=['HS256'])
-                return True
-            except (jwt.ExpiredSignatureError, jwt.InvalidSignatureError) as e:
+                if payload:
+                    return True
+            except (jwt.DecodeError, jwt.ExpiredSignatureError, jwt.InvalidSignatureError) as e:
                 return False
 
         return False

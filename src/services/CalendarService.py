@@ -5,6 +5,7 @@ from random import randint
 
 class CalendarService():
 
+    # create_user_calendar
     @classmethod
     def new_calendar(cls, user_id, calendar_name, timezone):
         # Generate new calendar id
@@ -32,13 +33,29 @@ class CalendarService():
                 'status': 'success',
                 'message': 'Calendar created successfully',
                 'data': new_calendar.to_json()
-            }
+            }, 201
 
         except Exception as e:
             return {
                 'status': 'error',
                 'message': str(e)
             }
+
+    @classmethod
+    def get_calendars(cls, user_id):
+        pass
+
+    @classmethod
+    def get_calendar(cls, calendar_id):
+        pass
+
+    @classmethod
+    def update_calendar(cls, calendar_id):
+        pass
+
+    @classmethod
+    def delete_calendar(cls, calendar_id):
+        pass
 
     @classmethod
     def calendar_id_exists(cls, calendar_id):
