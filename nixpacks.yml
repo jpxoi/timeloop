@@ -1,0 +1,1 @@
+nixpacks build --start "flask run"
