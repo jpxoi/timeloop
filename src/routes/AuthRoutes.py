@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from src.services.AuthService import AuthService
+from src.utils.Security import Security
 
 main = Blueprint('auth_blueprint', __name__)
 
@@ -41,7 +42,15 @@ def login():
 
 @main.route('/logout', methods=['POST'])
 def logout():
+    has_access = Security.verify_token(request.headers)
+
+    if not has_access:
+        return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
+
+    data = request.json
+
     try:
-        return jsonify({'message': 'This is the logout route. It should logout the user'}), 200
+        response = AuthService.logout(data['username'])
+        return jsonify(response[0]), response[1]
     except Exception as e:
         return jsonify({'message': str(e)}), 500

@@ -116,17 +116,30 @@ class AuthService():
             }, 500
 
     @classmethod
-    def logout(cls):
+    def logout(cls, username):
         try:
-            return {
-                'status': 'success',
-                'message': 'User logged out'
-            }
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM users WHERE username = %s"
+                cursor.execute(sql, (username))
+                user = cursor.fetchone()
+            connection.close()
+
+            if user:
+                return {
+                    'status': 'success',
+                    'message': 'Logout successful'
+                }, 200
+            else:
+                return {
+                    'status': 'error',
+                    'message': 'User not found'
+                }, 404
         except Exception as e:
             return {
                 'status': 'error',
                 'message': str(e)
-            }
+            }, 500
 
 # Auxiliary Methods
     @classmethod
