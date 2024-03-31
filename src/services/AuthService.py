@@ -94,6 +94,11 @@ class AuthService():
                     return {
                         'status': 'success',
                         'message': 'Login successful',
+                        'user_id': user[0],
+                        'first_name': user[2],
+                        'last_name': user[3],
+                        'email': user[5],
+                        'avatar_url': user[4],
                         'token': encoded_token
                     }, 200
 
