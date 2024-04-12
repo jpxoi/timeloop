@@ -17,22 +17,19 @@ class EventsService():
 
         # Parse all_day_event to boolean integer
         if all_day_event == 'true':
-            all_day_event = 1
+            all_day_event = '1'
         else:
-            all_day_event = 0
+            all_day_event = '0'
 
         # Parse event_start and event_end to datetime
         event_start = event_start.replace('T', ' ')
         event_end = event_end.replace('T', ' ')
 
-        # Parse event_type_id to integer
-        event_type_id = int(event_type_id)
-
         # Insert new event into the database
         try:
             connection = get_connection()
             with connection.cursor() as cursor:
-                sql = "INSERT INTO events (event_id, calendar_id, user_id, event_name, event_description, event_start_datetime, event_end_datetime, event_location, all_day_event, reccurence_rule_id, event_type_id) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                sql = "INSERT INTO events (event_id, calendar_id, user_id, event_name, event_description, event_start_datetime, event_end_datetime, event_location, all_day_event, reccurence_rule_id, event_type_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
                 cursor.execute(
                     sql, (event_id, calendar_id, user_id, event_name, event_description, event_start, event_end, event_location, all_day_event, reccurence_rule_id, event_type_id))
                 connection.commit()
