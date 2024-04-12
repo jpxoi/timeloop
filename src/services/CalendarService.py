@@ -43,7 +43,34 @@ class CalendarService():
 
     @classmethod
     def get_calendars(cls, user_id):
-        pass
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM calendars WHERE user_id = %s"
+                cursor.execute(sql, (user_id))
+                result = cursor.fetchall()
+            connection.close()
+
+            calendars = []
+            for row in result:
+                calendars.append({
+                    'calendar_id': row[0],
+                    'user_id': row[1],
+                    'calendar_name': row[2],
+                    'timezone': row[3]
+                })
+
+            return {
+                'status': 'success',
+                'message': 'Calendars retrieved successfully',
+                'data': calendars
+            }, 200
+
+        except Exception as e:
+            return {
+                'status': 'error',
+                'message': str(e)
+            }, 500
 
     @classmethod
     def get_calendar(cls, calendar_id):
