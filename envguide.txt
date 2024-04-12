@@ -1,0 +1,14 @@
+// .env file
+MYSQL_HOST	    = "host"
+MYSQL_PORT	    = 3306
+MYSQL_USER	    = "username"
+MYSQL_PASSWORD	= "password"
+MYSQL_DB	    = "dbname"
+
+JWT_KEY         = superSecretString
+
+
+// .flaskenv file
+FLASK_APP = app.py
+FLASK_ENV = development
+FLASK_DEBUG = 0
