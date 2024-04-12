@@ -55,7 +55,8 @@ class AuthService():
                     'first_name': first_name,
                     'last_name': last_name,
                     'email': email,
-                    'avatar_url': avatar_url
+                    'avatar_url': avatar_url,
+                    'calendar_data': new_calendar[0]
                 }
             }, 201
 

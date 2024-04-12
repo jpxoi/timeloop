@@ -5,7 +5,7 @@ from random import randint
 class EventsService():
 
     @classmethod
-    def new_event(cls, user_id, calendar_id, event_name, event_description, event_start, event_end):
+    def new_event(cls, user_id, calendar_id, event_name, event_description, event_start, event_end, event_location, all_day_event, reccurence_rule_id, event_type_id):
         # Generate new event id
         event_id = calendar_id * 10000 + randint(0, 9999)
         id_exists = cls.event_id_exists(event_id)
@@ -15,26 +15,48 @@ class EventsService():
             event_id = calendar_id * 10000 + randint(0, 9999)
             id_exists = cls.event_id_exists(event_id)
 
+        # Parse all_day_event to boolean integer
+        if all_day_event == 'true':
+            all_day_event = 1
+        else:
+            all_day_event = 0
+
+        # Parse event_start and event_end to datetime
+        event_start = event_start.replace('T', ' ')
+        event_end = event_end.replace('T', ' ')
+
+        # Parse event_type_id to integer
+        event_type_id = int(event_type_id)
+
         # Insert new event into the database
         try:
             connection = get_connection()
             with connection.cursor() as cursor:
-                sql = "INSERT INTO events (event_id, calendar_id, user_id, event_name, event_description, event_start, event_end) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                sql = "INSERT INTO events (event_id, calendar_id, user_id, event_name, event_description, event_start_datetime, event_end_datetime, event_location, all_day_event, reccurence_rule_id, event_type_id) VALUES (%s, %s, %s, %s, %s, %s, %s)"
                 cursor.execute(
-                    sql, (event_id, calendar_id, user_id, event_name, event_description, event_start, event_end))
+                    sql, (event_id, calendar_id, user_id, event_name, event_description, event_start, event_end, event_location, all_day_event, reccurence_rule_id, event_type_id))
                 connection.commit()
             connection.close()
 
             return {
                 'status': 'success',
-                'message': 'Event created successfully'
+                'message': 'Event created successfully',
+                'data': {
+                    'event_id': event_id,
+                    'calendar_id': calendar_id,
+                    'user_id': user_id,
+                    'event_name': event_name,
+                    'event_description': event_description,
+                    'event_start': event_start,
+                    'event_end': event_end
+                }
             }, 201
         
         except Exception as e:
             return {
                 'status': 'error',
                 'message': str(e)
-            }
+            }, 500
             
 
     @classmethod
@@ -75,7 +97,7 @@ class EventsService():
             return {
                 'status': 'error',
                 'message': str(e)
-            }
+            }, 500
 
     @classmethod
     def get_event(cls, user_id, calendar_id, event_id):
@@ -113,7 +135,7 @@ class EventsService():
             return {
                 'status': 'error',
                 'message': str(e)
-            }
+            }, 500
 
     @classmethod
     def update_event(cls, user_id, calendar_id, event_id, event_name, event_description, event_start, event_end):
@@ -142,4 +164,4 @@ class EventsService():
             return {
                 'status': 'error',
                 'message': str(e)
-            }
+            },
