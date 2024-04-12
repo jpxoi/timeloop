@@ -60,6 +60,13 @@ class CalendarService():
                     'timezone': row[3]
                 })
 
+            if not calendars:
+                return {
+                    'status': 'success',
+                    'message': 'No calendars found for this user or user does not exist',
+                    'data': calendars
+                }, 200
+
             return {
                 'status': 'success',
                 'message': 'Calendars retrieved successfully',
