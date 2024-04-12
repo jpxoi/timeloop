@@ -29,7 +29,7 @@ class EventsService():
         try:
             connection = get_connection()
             with connection.cursor() as cursor:
-                sql = "INSERT INTO events (event_id, calendar_id, event_name, event_description, event_start_datetime, event_end_datetime, event_location, all_day_event, reccurence_rule_id, event_type_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                sql = "INSERT INTO events (event_id, calendar_id, event_name, event_description, event_start_datetime, event_end_datetime, event_location, all_day_event, reccurence_rule_id, event_type_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
                 cursor.execute(
                     sql, (event_id, calendar_id, event_name, event_description, event_start, event_end, event_location, all_day_event, reccurence_rule_id, event_type_id))
                 connection.commit()
