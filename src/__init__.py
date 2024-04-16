@@ -4,7 +4,7 @@ from .routes import IndexRoutes, AuthRoutes, UsersRoutes
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": ['http://localhost:5173', 'https://timeloop.vercel.app']}})
+CORS(app, resources={r"/*": {"origins": ['http://localhost:5173', 'https://timeloop.vercel.app', 'https://l13d3x43-5173.uks1.devtunnels.ms']}})
 
 def error404(error):
     message = error.description
