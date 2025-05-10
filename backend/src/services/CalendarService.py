@@ -1,0 +1,113 @@
+from src.database.db_mysql import get_connection
+from src.models.CalendarsModel import Calendars
+from random import randint
+
+
+class CalendarService():
+
+    # create_user_calendar
+    @classmethod
+    def new_calendar(cls, user_id, calendar_name, timezone):
+        # Generate new calendar id
+        calendar_id = 1000 + randint(0, 8999)
+        id_exists = CalendarService.calendar_id_exists(calendar_id)
+
+        # Ensure that the calendar id is unique
+        while id_exists:
+            calendar_id = 1000 + randint(0, 8999)
+            id_exists = CalendarService.calendar_id_exists(calendar_id)
+
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                sql = "INSERT INTO calendars (calendar_id, user_id, calendar_name, timezone) VALUES (%s, %s, %s, %s)"
+                cursor.execute(
+                    sql, (calendar_id, user_id, calendar_name, timezone))
+                connection.commit()
+            connection.close()
+
+            new_calendar = Calendars(
+                calendar_id, user_id, calendar_name, timezone)
+
+            return {
+                'status': 'success',
+                'message': 'Calendar created successfully',
+                'data': new_calendar.to_json()
+            }, 201
+
+        except Exception as e:
+            return {
+                'status': 'error',
+                'message': str(e)
+            }
+
+    @classmethod
+    def get_calendars(cls, user_id):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM calendars WHERE user_id = %s"
+                cursor.execute(sql, (user_id))
+                result = cursor.fetchall()
+            connection.close()
+
+            calendars = []
+            for row in result:
+                calendars.append({
+                    'calendar_id': row[0],
+                    'user_id': row[1],
+                    'calendar_name': row[2],
+                    'timezone': row[3]
+                })
+
+            if not calendars:
+                return {
+                    'status': 'success',
+                    'message': 'No calendars found for this user or user does not exist',
+                    'data': calendars
+                }, 200
+
+            return {
+                'status': 'success',
+                'message': 'Calendars retrieved successfully',
+                'data': calendars
+            }, 200
+
+        except Exception as e:
+            return {
+                'status': 'error',
+                'message': str(e)
+            }, 500
+
+    @classmethod
+    def get_calendar(cls, calendar_id):
+        pass
+
+    @classmethod
+    def update_calendar(cls, calendar_id):
+        pass
+
+    @classmethod
+    def delete_calendar(cls, calendar_id):
+        pass
+
+    @classmethod
+    def calendar_id_exists(cls, calendar_id):
+        try:
+            connection = get_connection()
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM calendars WHERE calendar_id = %s"
+                cursor.execute(sql, (calendar_id))
+                result = cursor.fetchone()
+            connection.close()
+
+            if result:
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            return {
+                'status': 'error',
+                'message': str(e)
+            }
